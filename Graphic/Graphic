@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    setlocale(0, "");
+
+    int X;
+    int Y;
+
+    int x;
+    int y;
+    
+    cout << "Введи значение координат\n";
+    cout << "Значение X: ";
+    cin >> X;
+    cout << "Значение Y: ";
+    cin >> Y;
+
+    cout << "\nВведи значение оси\n";
+    cout << "Значение x: ";
+    cin >> x;
+    cout << "Значение y: ";
+    cin >> y;
+
+
+    if (x <= X and y <= Y) 
+    {
+        for (int a = 0; a < X; a++) 
+        {
+            for (int i = 0; i < Y; i++)
+            {
+                if (a == X / 2 || i == Y / 2)
+                {
+                    cout << "+" << " ";
+                }
+                
+                else
+                {
+                    cout << ". ";
+                }
+            }
+            cout << endl;
+        }
+    }
+}
