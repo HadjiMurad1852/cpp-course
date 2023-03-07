@@ -1,0 +1,38 @@
+#include <iostream>
+#include "Header.h"
+
+int main()
+{
+    setlocale(0, "");
+
+    char value;
+
+    std::cout << "Введите символ от 'a' до 'e' английского алфавита\n\n";
+    std::cout << "Символ: ";
+    std::cin >> value;
+
+    std::cout << "\nВывод: ";
+
+    switch (value)
+    {
+    case 'a':
+        std::cout << header::A;
+        break;
+    case 'b':
+        std::cout << header::B;
+        break;
+    case 'c':
+        std::cout << header::C;
+        break;
+    case 'd':
+        std::cout << header::D;
+        break;
+    case 'e':
+        std::cout << header::E;
+        break;
+    default:
+        std::cout << "Такого значения в библиотеке нет.";
+        break;
+    }
+
+}
