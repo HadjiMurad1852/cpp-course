@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+
+int calculator(int n1, int n2, char operation) {
+	switch (operation)
+	{
+	case '+':
+		return n1 + n2;
+	case '-':
+		return n1 - n2;
+	case '*':
+		return n1 * n2;
+	case '/':
+		return n1 / n2;
+	default:
+		return 0;
+	}
+}
+
+int main()
+{
+	setlocale(0, "");
+	int num1, num2;
+	char operation;
+
+	cout << "Введи первое значение: ";
+	cin >> num1;
+	cout << "Введи второе значение: ";
+	cin >> num2;
+	cout << "Выбери операцию (+, -, *, /): ";
+	cin >> operation;
+
+	cout << calculator(num1, num2, operation);
+}
+
