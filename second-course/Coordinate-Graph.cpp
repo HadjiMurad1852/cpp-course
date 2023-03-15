@@ -1,3 +1,5 @@
+// Создать график с выводом на нём точки с линиями
+
 #include <iostream>
 #include <conio.h>
 using namespace std;
