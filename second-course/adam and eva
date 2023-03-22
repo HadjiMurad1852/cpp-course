@@ -1,0 +1,52 @@
+#include <iostream>
+#include <conio.h>
+
+using namespace std;
+
+int main()
+{
+    setlocale(0, "");
+
+    char arr[20][20];
+
+    char adam[3][3] = {
+        {' ', ' ', ' '},
+        {' ', ' ', ' '},
+        {' ', ' ', ' '}
+    };
+    char eva[3][3] = {
+        {' ', '*', ' '},
+        {'\\', '^', '/'},
+        {'/', ' ', '\\'}
+    };
+
+    int cord_i = 1;
+    int cord_j = 1;
+
+    cout << "Нажми любую клавишу\n";
+
+    while (true) {
+        int press_code_for_adam = _getch();
+
+        switch (press_code_for_adam)
+        {
+            case int('w'):
+                if (cord_i != 1) {
+                    cord_i -= 1;
+                }
+            break;
+            case int('s'):
+                if (cord_i != size(arr) - 4) {
+                    cord_i -= 1;
+                }
+            break;
+            case int('d'):
+                if (cord_j)
+                {
+
+                }
+        default:
+            break;
+        }
+    }
+}
