@@ -1,0 +1,180 @@
+#include <iostream>
+#include <conio.h>
+#include <cstdio>
+#include <Windows.h>
+
+FILE* stream;
+
+using namespace std;
+
+int Random(int min, int max) {
+	srand(time(NULL));
+	int num = min + rand() % (max - min + 1);
+	return num;
+}
+void hidecursor()
+{
+	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO info;
+	info.dwSize = 100;
+	info.bVisible = FALSE;
+	SetConsoleCursorInfo(consoleHandle, &info);
+}
+
+int main() {
+	int x, y, x1, y1, x2, y2, xbar, ybar, toch = 0, score = 0, size1, size2;
+	string BLUE = "\x1b[36m";
+	string textc = "\x1b[0m";
+	char click;
+
+	hidecursor();
+
+	HANDLE hd = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD cd;
+	cd.X = 0;
+	cd.Y = 0;
+
+	cout << "enter field lenght: ";
+	cin >> x;
+	cout << "enter field height: ";
+	cin >> y;
+	system("cls");
+
+
+	x = abs(x);
+	y = abs(y);
+
+	//двумерный динамический массив
+	string** arr = new string * [y + 2];
+	for (int i = 0; i < y + 2; i++)
+	{
+		arr[i] = new string[x + 2];
+	}
+
+	//поле
+	for (int i = 0; i < y + 2; i++) {
+		if (i == 0 or i == y + 1) {
+			for (int j = 0; j < x + 2; j++) {
+				arr[i][j] = "$ ";
+			}
+		}
+		else {
+			for (int j = 0; j < x + 2; j++) {
+				if (j == 0 or j == x + 1) {
+					arr[i][j] = "$ ";
+				}
+				else {
+					arr[i][j] = "  ";
+				}
+			}
+		}
+	}
+	//точка в центре
+	y1 = (y + 1) / 2;
+	x1 = (x + 1) / 2;
+	arr[y1][x1] = "+ ";
+
+	//препятствие
+	for (int i = 0; i != x * y / 4; i++) {
+		xbar = rand() % (y - 1) + 1;
+		ybar = rand() % (x - 1) + 1;
+		while (arr[ybar][xbar] == "# " and arr[ybar][xbar] == "$ ") {
+			xbar = rand() % (y - 1) + 1;
+			ybar = rand() % (x - 1) + 1;
+		}
+		arr[ybar][xbar] = "# ";
+	}
+	
+	do {
+		hidecursor();
+		SetConsoleCursorPosition(hd, cd);
+
+		while (toch < 1) {
+			y2 = Random(1, y - 1);
+			x2 = Random(1, x - 1);
+			if (arr[y2][x2] != "\x1b[36m* \x1b[0m" and arr[y2][x2] != "# ") {
+				arr[y2][x2] = "\x1b[31m o\x1b[0m";
+				toch = 1;
+			}
+		}
+		string m = "";
+		
+		//массив
+		if (x1 == x2 and y1 == y2) {
+			toch = 0;
+			score += 1;
+		}
+		for (int i = 0; i < y + 2; i++) {
+			for (int j = 0; j < x + 2; j++) {
+				m = m + arr[i][j];
+			}
+			m = m + "\n";
+		}
+		cout << m;
+
+
+		cout << "click 'wasd' to move\npoints [ \x1b[36m" << score << "\x1b[0m ]\n\n\n\n";
+		cout << "for exit press esc";
+
+		click = _getch();
+		switch (click) {
+		//w
+		case 'W':
+		case 'w':
+		{
+			if (y1 - 1 == 0 or arr[y1 - 1][x1] == "# ") {
+				break;
+			}
+			else {
+				arr[y1][x1] = "  ";
+				y1 = y1 - 1;
+				arr[y1][x1] = "\x1b[36m* \x1b[0m";
+				break;
+			}
+		}
+		//s
+		case 'S':
+		case 's': {
+			if (y1 + 1 == y + 1 or arr[y1 + 1][x1] == "# ") {
+				break;
+			}
+			else {
+				arr[y1][x1] = "  ";
+				y1 = y1 + 1;
+				arr[y1][x1] = "\x1b[36m* \x1b[0m";
+				break;
+			}
+		}
+		//d
+		case 'D':
+		case 'd': {
+			if (x1 + 1 == x + 1 or arr[y1][x1 + 1] == "# ") {
+				break;
+			}
+			else {
+				arr[y1][x1] = "  ";
+				x1 = x1 + 1;
+				arr[y1][x1] = "\x1b[36m* \x1b[0m";
+				break;
+			}
+		}
+		//a
+		case 'A':
+		case 'a': {
+			if (x1 - 1 == 0 or arr[y1][x1 - 1] == "# ") {
+				break;
+			}
+			else {
+				arr[y1][x1] = "  ";
+				x1 = x1 - 1;
+				arr[y1][x1] = "\x1b[36m* \x1b[0m";
+				break;
+			}
+		}
+		default:
+			break;
+		}
+
+	} while (click != '\033');
+
+}
